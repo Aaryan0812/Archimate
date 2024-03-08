@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myzzz123
+  namespace: default
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJteXp6ejEyMy5henVyZWNyLmlvIjp7InVzZXJuYW1lIjoibXl6enoxMjMiLCJwYXNzd29yZCI6Ijg1eC9QWkllWVJlMFNrcVVCTGhkZUlZNnZOQ3BHbGRpOEVYdUl3c2NCKytBQ1JDTjExRkoiLCJhdXRoIjoiYlhsNmVub3hNak02T0RWNEwxQmFTV1ZaVW1Vd1UydHhWVUpNYUdSbFNWazJkazVEY0Vkc1pHazRSVmgxU1hkelkwSXJLMEZEVWtOT01URkdTZz09In19fQ==
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anzograph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: anzograph
+  template:
+    metadata:
+      labels:
+        app: anzograph
+    spec:
+      imagePullSecrets:
+      - name: myzzz123
+      containers:
+      - name: anzograph
+        image: myzzz123.azurecr.io/anzograph:v1
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "14Gi" 
+            
+            
